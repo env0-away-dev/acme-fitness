@@ -1,6 +1,6 @@
 {
-  "ENV0_ENVIRONMENT_ID": "foo",
-  "ENV0_TEMPLATE_ID": "bar",
-  "ENV0_ORGANIZATION_ID": "my_org_id",
+  "ENV0_ENVIRONMENT_ID": "7d1ecea6-582c-4aaf-acb5-174dd0708c3f",
+  "ENV0_TEMPLATE_ID": "f4e4ebf8-620b-4ce5-827c-fa4eea0116ab",
+  "ENV0_ORGANIZATION_ID": "bde19c6d-d0dc-4b11-a951-8f43fe49db92",
   "COMMENT": "this is a dummy json file in order for tf validate to pass"
 }

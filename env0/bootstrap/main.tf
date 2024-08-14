@@ -1,6 +1,6 @@
 # taking advantage of some tricks in env0
 locals {
-  
+
 }
 
 # Create Assume Role
