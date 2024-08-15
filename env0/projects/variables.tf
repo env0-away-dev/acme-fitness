@@ -4,6 +4,12 @@ variable "team_name" {
   default     = "Skunkworks"
 }
 
+variable "description" {
+  description = "Description of project(s)"
+  type        = string
+  default     = ""
+}
+
 variable "team_environments" {
   description = "List of team environments"
   type        = list(string)

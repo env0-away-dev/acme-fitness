@@ -28,6 +28,13 @@ resource "env0_configuration_variable" "team_name" {
   type        = "terraform"
 }
 
+resource "env0_configuration_variable" "description" {
+  template_id = env0_template.projects.id
+  name        = "description"
+  is_required = false
+  type        = "terraform"
+}
+
 resource "env0_configuration_variable" "team_environments" {
   template_id = env0_template.projects.id
   name        = "team_environments"

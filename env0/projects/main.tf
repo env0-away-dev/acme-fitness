@@ -22,7 +22,7 @@ output "team_environments" {
 
 resource "env0_project" "team_project" {
   name        = var.team_name
-  description = "Team project for ${var.team_name}"
+  description = var.description
 }
 
 resource "env0_project" "environment_projects" {

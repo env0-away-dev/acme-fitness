@@ -6,7 +6,6 @@ resource "env0_environment" "default_projects" {
   for_each = var.default_projects
 
   name                       = "${each.key} Project"
-  description                = each.value.description
   project_id                 = data.env0_environment.this.project_id
   template_id                = env0_template.projects.id
   approve_plan_automatically = true
@@ -21,6 +20,13 @@ resource "env0_environment" "default_projects" {
     description = "main project name for team"
     regex       = "[a-zA-Z0-9-_]*"
     is_required = true
+  }
+
+  configuration {
+    name        = "description"
+    value       = each.value.description
+    type        = "terraform"
+    description = "project description"
   }
 
   depends_on = [env0_configuration_variable.team_name,

@@ -5,7 +5,7 @@
 # }
 
 variable "default_projects" {
-  type        = list(string)
+  type        = map(any)
   description = "if empty (do not create projects), otherwise, create list of default projects"
   default     = {
     "Tiger" = {
