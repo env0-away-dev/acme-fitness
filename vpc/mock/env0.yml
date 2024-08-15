@@ -1,6 +1,0 @@
-version: 1
-
-deploy:
-  onSuccess:
-    - echo "Update env0 project variable"
-    - ./update_variable.sh

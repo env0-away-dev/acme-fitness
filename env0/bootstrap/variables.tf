@@ -7,7 +7,14 @@
 variable "default_projects" {
   type        = list(string)
   description = "if empty (do not create projects), otherwise, create list of default projects"
-  default     = ["Skunkworks", "Phoenix", "Unicorn"]
+  default     = {
+    "Tiger" = {
+      description = "The Tiger team needs more hand-holding and utilize templates to create new resources through the UI"
+    }
+    "Dragon" = {
+      description = "The Dragon team are IaC power users, they know how to write and maintain their own infra code"
+    }
+  }
 }
 
 variable "create_templates" {

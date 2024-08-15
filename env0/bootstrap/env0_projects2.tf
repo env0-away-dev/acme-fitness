@@ -3,9 +3,10 @@
 ### using the template created from env0_projects.tf
 
 resource "env0_environment" "default_projects" {
-  for_each = toset(var.default_projects)
+  for_each = var.default_projects
 
   name                       = "${each.key} Project"
+  description                = each.value.description
   project_id                 = data.env0_environment.this.project_id
   template_id                = env0_template.projects.id
   approve_plan_automatically = true
@@ -29,8 +30,8 @@ resource "env0_environment" "default_projects" {
   env0_api_key.mgmt]
 
   lifecycle {
-    ignore_changes = [
-      variable_sets
-    ]
+    # ignore_changes = [
+    #   variable_sets
+    # ]
   }
 }
