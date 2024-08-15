@@ -1,4 +1,6 @@
 ### This file consumes resources created from env0_projects.tf
+### This is where we create the bootstrapped projects (var.default_projects)
+### using the template created from env0_projects.tf
 
 resource "env0_environment" "default_projects" {
   for_each = toset(var.default_projects)

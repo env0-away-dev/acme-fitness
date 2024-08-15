@@ -1,13 +1,14 @@
 locals {
   # tofu_templates = ["vpc", "ec2", "s3", "random_pet"]
 
+  ## use tofu_templates to define both the template and variables (nested)
   tofu_templates = {
     "vpc" = {
       "getRealVPC" = {
         name  = "getRealVPC"
         type  = "terraform"
         value = "true"
-        enum = [
+        enum  = [
           "true",
           "false"
         ]
@@ -17,7 +18,7 @@ locals {
         name  = "region"
         type  = "terraform"
         value = "us-west-2"
-        enum = [
+        enum  = [
           "us-west-2",
           "us-east-1"
         ]
@@ -46,7 +47,48 @@ locals {
         name  = "region"
         type  = "terraform"
         value = "us-west-2"
-        enum = [
+        enum  = [
+          "us-west-2",
+          "us-east-1"
+        ]
+        format = null
+      }
+    }
+    "s3" = {
+      "prefix" = {
+        name   = "prefix"
+        type   = "terraform"
+        value  = "env0-s3"
+        format = null
+      }
+      "bucketname" = {
+        name   = "bucketname"
+        type   = "terraform"
+        value  = "bucket"
+        format = null
+      }
+      "region" = {
+        name  = "region"
+        type  = "terraform"
+        value = "us-west-2"
+        enum  = [
+          "us-west-2",
+          "us-east-1"
+        ]
+        format = null
+      }
+    }
+    "eks_data" = {
+      "cluster-name" = {
+        name        = "cluster-name"
+        is_required = true
+        format      = null
+      }
+      "region" = {
+        name  = "region"
+        type  = "terraform"
+        value = "us-west-2"
+        enum  = [
           "us-west-2",
           "us-east-1"
         ]
@@ -63,6 +105,53 @@ locals {
     }
   ]...)
 }
+
+# ## Uncomment this to understand the structure of local.template_vars 
+# example structure
+# {
+#   "ec2_instance_type": {
+#     "enum": ["t3a.micro", "t3a.small", "t3a.medium"],
+#     "format": null,
+#     "name": "instance_type",
+#     "template": "ec2",
+#     "type": "terraform",
+#     "value": "t3a.micro"
+#   },
+#   "ec2_region": {
+#     "enum": ["us-west-2", "us-east-1"],
+#     "format": null,
+#     "name": "region",
+#     "template": "ec2",
+#     "type": "terraform",
+#     "value": "us-west-2"
+#   },
+#   "ec2_vpc_id": {
+#     "format": null,
+#     "is_required": true,
+#     "name": "vpc_id",
+#     "template": "ec2",
+#     "type": "terraform"
+#   },
+#   "vpc_getRealVPC": {
+#     "enum": ["true", "false"],
+#     "format": null,
+#     "name": "getRealVPC",
+#     "template": "vpc",
+#     "type": "terraform",
+#     "value": "true"
+#   },
+#   "vpc_region": {
+#     "enum": ["us-west-2", "us-east-1"],
+#     "format": null,
+#     "name": "region",
+#     "template": "vpc",
+#     "type": "terraform",
+#     "value": "us-west-2"
+#   }
+# }
+# output "template_var" {
+#   value = local.template_vars
+# }
 
 resource "env0_template" "template" {
   for_each = local.tofu_templates
@@ -84,10 +173,6 @@ resource "env0_template" "template" {
   # gitlab_project_id    = var.vcs == "gitlab" ? data.env0_template.this.gitlab_project_id : null
 }
 
-output "template_var" {
-  value = local.template_vars
-}
-
 
 resource "env0_configuration_variable" "template_var" {
   for_each = local.template_vars
@@ -101,4 +186,3 @@ resource "env0_configuration_variable" "template_var" {
   format      = lookup(each.value, "format", null)
   is_required = lookup(each.value, "is_required", false)
 }
-
