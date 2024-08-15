@@ -15,6 +15,10 @@ Get an overview of how to use this repo from this [video](https://www.youtube.co
 2. Sign-up for an env0 Account https://app.env0.com
 3. Admin access to an AWS Account or [Create a Free AWS Account](https://aws.amazon.com/free/)
 
+## History
+2024/08 - Refactor with bootstrap
+2022    - Initial commit
+
 Disclaimer: 
 Any resemblance to real persons or other real-life entities is purely coincidental. Or All characters and other entities appearing in this work are fictitious. Any resemblance to real persons, dead or alive, or other real-life entities, past or present, is purely coincidental.
 
