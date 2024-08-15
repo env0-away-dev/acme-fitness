@@ -81,6 +81,7 @@ locals {
     "eks_data" = {
       "cluster-name" = {
         name        = "cluster-name"
+        type        = "terraform"
         is_required = true
         format      = null
       }
