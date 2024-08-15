@@ -96,6 +96,13 @@ locals {
         format = null
       }
     }
+    "random_pet" = {
+      "keeper" = {
+        name        = "keeper"
+        type        = "terraform"
+        format      = null
+      }
+    }
   }
 
   template_vars = merge([
