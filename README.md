@@ -14,6 +14,7 @@ Get an overview of how to use this repo from this [video](https://www.youtube.co
 1. Fork this repo, and clone it locally. See [GitHub Docs on Forking & Cloning](https://docs.github.com/en/get-started/quickstart/fork-a-repo#forking-a-repository)
 2. Sign-up for an env0 Account https://app.env0.com
 3. Admin access to an AWS Account or [Create a Free AWS Account](https://aws.amazon.com/free/)
+4. Deploy the `env0/bootstrap` folder in env0 using create "Environment from VCS"
 
 ## History
 2024/08 - Refactor with bootstrap
