@@ -11,9 +11,9 @@ variable "description" {
 }
 
 variable "team_environments" {
-  description = "List of team environments"
   type        = list(string)
   default     = ["Dev", "Stage", "Prod"]
+  description = "List of team environments"
 }
 
 variable "policies" {
@@ -86,4 +86,10 @@ variable "default_templates" {
   type        = list(string)
   description = "list of templates to add to project"
   default     = ["vpc", "ec2", "s3", "random_pet"]
+}
+
+variable "credentials" {
+  type        = list(string)
+  default     = ["Dev", "Stage", "Prod"]
+  description = "List of team environments"
 }
