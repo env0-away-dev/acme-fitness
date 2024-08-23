@@ -52,4 +52,3 @@ resource "env0_aws_cost_credentials" "aws_cost_credentials" {
   arn      = aws_iam_role.env0_cost_role.arn
   duration = 3600
 }
-
