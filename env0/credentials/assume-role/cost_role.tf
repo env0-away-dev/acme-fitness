@@ -24,19 +24,12 @@ resource "aws_iam_role" "env0_cost_role" {
     ]
   })
 
-  tags = {
-    note    = "Created through env0 Bootstrap"
-    purpose = "Allow env0 Cost Management features"
-  }
-}
-
-resource "aws_iam_role_policy" "test_policy" {
-  name = "${var.assume_role_name}-cost-policy"
-  role = aws_iam_role.env0_cost_role.id
+  inline_policy {
+    name = "${var.assume_role_name}-cost-policy"
 
   # Terraform's "jsonencode" function converts a
   # Terraform expression result to valid JSON syntax.
-  policy = jsonencode({
+    policy = jsonencode({
     Version = "2012-10-17"
     Statement = [
       {
@@ -45,7 +38,13 @@ resource "aws_iam_role_policy" "test_policy" {
         Effect   = "Allow"
       },
     ]
-  })
+    })
+  }
+
+  tags = {
+    note    = "Created through env0 Bootstrap"
+    purpose = "Allow env0 Cost Management features"
+  }
 }
 
 resource "env0_aws_cost_credentials" "aws_cost_credentials" {
@@ -53,4 +52,3 @@ resource "env0_aws_cost_credentials" "aws_cost_credentials" {
   arn      = aws_iam_role.env0_cost_role.arn
   duration = 3600
 }
-
