@@ -89,7 +89,7 @@ variable "default_templates" {
 }
 
 variable "credentials" {
-  type        = list(string)
-  default     = ["Dev", "Stage", "Prod"]
-  description = "List of team environments"
+  type        = map(object)
+  default     = null
+  description = "Credentials for Projects"
 }
