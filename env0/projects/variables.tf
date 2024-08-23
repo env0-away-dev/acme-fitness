@@ -89,7 +89,7 @@ variable "default_templates" {
 }
 
 variable "credentials" {
-  type        = map(object)
+  type        = map(any)
   default     = null
   description = "Credentials for Projects"
 }
