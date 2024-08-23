@@ -33,6 +33,7 @@ resource "env0_configuration_variable" "description" {
   name        = "description"
   is_required = false
   type        = "terraform"
+  description = "project description"
 }
 
 resource "env0_configuration_variable" "team_environments" {
