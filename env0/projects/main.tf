@@ -6,6 +6,8 @@ locals {
       template    = "${v[1]}"
     }
   }
+
+
 }
 
 output "template_project" {
@@ -63,4 +65,22 @@ resource "env0_template_project_assignment" "assignment" {
 
   template_id = data.env0_template.defaults[each.value.template].id
   project_id  = env0_project.environment_projects[each.value.environment].id
+}
+
+data "env0_aws_credentials" "name" {
+  for_each = var.aws_credentials
+  
+  name = each.key
+}
+
+resource "env0_cloud_credentials_project_assignment" "example" {
+  for_each = flatten([
+    for cred, env_list in var.aws_credentials : [
+      for env in env_list :
+        { cred = env }
+    ]
+  ])
+
+  credential_id = data.env0_aws_credentials.name[each.key].id
+  project_id    = env0_project.environment_projects[each.value].id
 }

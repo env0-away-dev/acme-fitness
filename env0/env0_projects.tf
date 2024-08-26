@@ -45,16 +45,14 @@ resource "env0_configuration_variable" "team_environments" {
   value       = "[\"Dev\", \"Stage\", \"Prod\"]"
 }
 
-resource "env0_configuration_variable" "credentials" {
+resource "env0_configuration_variable" "aws_credentials" {
   template_id = env0_template.projects.id
-  name        = "credentials"
-  description = "credentials for project"
+  name        = "aws_credentials"
+  description = "aws_credentials for project"
   format      = "JSON"
   type        = "terraform"
   value       = jsonencode({
-    "Dev" = module.assume-role.cost_role_arn
-    "Stage" = module.assume-role.cost_role_arn
-    "Prod" = module.assume-role.cost_role_arn
+    module.assume-role.cost_role_arn = ["Dev", "Stage", "Prod"]
   })
   
 }
