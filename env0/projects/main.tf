@@ -74,13 +74,22 @@ data "env0_aws_credentials" "name" {
 }
 
 resource "env0_cloud_credentials_project_assignment" "example" {
-  for_each = flatten([
+  for_each = toset(flatten([
+    for cred, env_list in var.aws_credentials : [
+      for env in env_list :
+        { cred = env }
+    ]
+  ]))
+
+  credential_id = data.env0_aws_credentials.name[each.key].id
+  project_id    = env0_project.environment_projects[each.value].id
+}
+
+output "env0_cred_flatten" {
+  value = flatten([
     for cred, env_list in var.aws_credentials : [
       for env in env_list :
         { cred = env }
     ]
   ])
-
-  credential_id = data.env0_aws_credentials.name[each.key].id
-  project_id    = env0_project.environment_projects[each.value].id
 }
