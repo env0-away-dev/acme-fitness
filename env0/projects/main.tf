@@ -7,7 +7,7 @@ locals {
     }
   }
 
-  cred_env_pair = merge([
+  cred_env_pair = flatten([
     for cred, env_list in var.aws_credentials : [
       for env in env_list :
         { key = env }
