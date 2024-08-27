@@ -7,6 +7,12 @@ locals {
     }
   }
 
+  cred_env_pair = flatten([
+    for cred, env_list in var.aws_credentials : [
+      for env in env_list :
+        { (cred) = env }
+    ]
+  ])
 
 }
 
@@ -73,23 +79,13 @@ data "env0_aws_credentials" "name" {
   name = each.key
 }
 
-resource "env0_cloud_credentials_project_assignment" "example" {
-  for_each = toset(flatten([
-    for cred, env_list in var.aws_credentials : [
-      for env in env_list :
-        { cred = env }
-    ]
-  ]))
+# resource "env0_cloud_credentials_project_assignment" "example" {
+#   for_each = local.cred_env_pair
 
-  credential_id = data.env0_aws_credentials.name[each.key].id
-  project_id    = env0_project.environment_projects[each.value].id
-}
+#   credential_id = data.env0_aws_credentials.name[each.key].id
+#   project_id    = env0_project.environment_projects[each.value].id
+# }
 
 output "env0_cred_flatten" {
-  value = flatten([
-    for cred, env_list in var.aws_credentials : [
-      for env in env_list :
-        { cred = env }
-    ]
-  ])
+  value = local.cred_env_pair
 }
