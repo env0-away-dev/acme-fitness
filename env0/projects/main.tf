@@ -7,12 +7,12 @@ locals {
     }
   }
 
-  cred_env_pair = flatten(flatten([
+  cred_env_pair = flatten([
     for cred, env_list in var.aws_credentials : [
       for env in env_list :
         { (cred) = env }
     ]
-  ]))
+  ])
 }
 
 output "template_project" {
