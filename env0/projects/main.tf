@@ -7,12 +7,12 @@ locals {
     }
   }
 
-  cred_env_pair = flatten([
+  cred_env_pair = [
     for cred, env_list in var.aws_credentials : [
       for env in env_list :
         { (cred) = env }
     ]
-  ])
+  ]
 
 }
 
