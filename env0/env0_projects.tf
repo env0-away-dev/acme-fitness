@@ -53,8 +53,7 @@ resource "env0_configuration_variable" "aws_credentials" {
   format      = "JSON"
   type        = "terraform"
   value       = jsonencode({
-    (module.assume-role.deployer_arn) = ["Dev", "Stage"],
-    (module.assume-role.deployer_arn) = ["Prod"]
+    (module.assume-role.deployer_arn) = ["Dev", "Stage", "Prod"]
   })
   
 }
