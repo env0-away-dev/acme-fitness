@@ -6,6 +6,29 @@ locals {
       template    = "${v[1]}"
     }
   }
+
+  # This creates an array [] of { credential = cred, environment = env}
+  cred_env_pair = flatten([
+    for cred, env_list in var.aws_credentials : [
+      for env in env_list : { 
+        credential = cred
+        environment = env
+      }
+    ]
+  ])
+
+  ## this converts the array (cred_env_pair) into a map.
+  cred_env_map = {
+    for cred_env in local.cred_env_pair : "${cred_env.credential}.${cred_env.environment}" => cred_env
+  }
+}
+
+output "cred_env_pair" {
+  value = local.cred_env_pair 
+}
+
+output "env0_cred_map" {
+  value = local.cred_env_map
 }
 
 output "template_project" {
@@ -64,3 +87,17 @@ resource "env0_template_project_assignment" "assignment" {
   template_id = data.env0_template.defaults[each.value.template].id
   project_id  = env0_project.environment_projects[each.value.environment].id
 }
+
+data "env0_aws_credentials" "name" {
+  for_each = var.aws_credentials
+  
+  name = each.key
+}
+
+resource "env0_cloud_credentials_project_assignment" "example" {
+  for_each = local.cred_env_map
+
+  credential_id = data.env0_aws_credentials.name[each.value.credential].id
+  project_id    = env0_project.environment_projects[each.value.environment].id
+}
+

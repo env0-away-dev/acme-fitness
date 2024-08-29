@@ -88,8 +88,8 @@ variable "default_templates" {
   default     = ["vpc", "ec2", "s3", "random_pet"]
 }
 
-variable "credentials" {
-  type        = map(string)
+variable "aws_credentials" {
+  type        = map(list(string))
   default     = null
-  description = "Credentials for Projects e.g. { dev = \"credential_name_foo\"}"
+  description = "Credentials - Assigned to Projects e.g. { credential_name = [\"Dev\",\"Stage\",\"Prod\"]"
 }
