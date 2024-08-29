@@ -7,6 +7,7 @@ locals {
     }
   }
 
+  # This creates an array [] of { credential = cred, environment = env}
   cred_env_pair = flatten([
     for cred, env_list in var.aws_credentials : [
       for env in env_list : { 
@@ -16,17 +17,18 @@ locals {
     ]
   ])
 
+  ## this converts the array (cred_env_pair) into a map.
   cred_env_map = {
     for cred_env in local.cred_env_pair : "${cred_env.credential}.${cred_env.environment}" => cred_env
   }
 }
 
-output "env0_cred_flatten" {
+output "cred_env_pair" {
   value = local.cred_env_pair 
 }
 
-output "env0_cred_2" {
-  value = { for k, v in local.cred_env_pair: k => v }
+output "env0_cred_map" {
+  value = local.cred_env_map
 }
 
 output "template_project" {
