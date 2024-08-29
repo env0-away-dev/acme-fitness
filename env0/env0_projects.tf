@@ -45,6 +45,7 @@ resource "env0_configuration_variable" "team_environments" {
   value       = "[\"Dev\", \"Stage\", \"Prod\"]"
 }
 
+# default credential configuration 
 resource "env0_configuration_variable" "aws_credentials" {
   template_id = env0_template.projects.id
   name        = "aws_credentials"
@@ -52,7 +53,8 @@ resource "env0_configuration_variable" "aws_credentials" {
   format      = "JSON"
   type        = "terraform"
   value       = jsonencode({
-    (module.assume-role.deployer_arn) = ["Dev", "Stage", "Prod"]
+    (module.assume-role.deployer_arn) = ["Dev", "Stage"]
+    (module.assume-role.deployer_arn) = ["Prod"]
   })
   
 }
