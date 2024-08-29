@@ -10,9 +10,17 @@ locals {
   cred_env_pair = flatten([
     for cred, env_list in var.aws_credentials : [
       for env in env_list :
-        { key = env }
+        { cred = env }
     ]
   ])
+}
+
+output "env0_cred_flatten" {
+  value = local.cred_env_pair 
+}
+
+output "env0_cred_2" {
+  value = { for k, v in local.cred_env_pair: k => v }
 }
 
 output "template_project" {
@@ -85,6 +93,3 @@ data "env0_aws_credentials" "name" {
 #   project_id    = env0_project.environment_projects[each.value].id
 # }
 
-output "env0_cred_flatten" {
-  value = local.cred_env_pair
-}
