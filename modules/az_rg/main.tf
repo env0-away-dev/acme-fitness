@@ -21,7 +21,7 @@ provider "azuread" {
 data "azuread_client_config" "current" {}
 
 resource "azurerm_resource_group" "example" {
-  name       = "${var.prefix}-sales-rg"
+  name       = "${var.prefix}-${var.name}"
   location   = var.location
   managed_by = data.azuread_client_config.current.object_id
 }
@@ -29,6 +29,11 @@ resource "azurerm_resource_group" "example" {
 variable "prefix" {
   type    = string
   default = "env0"
+}
+
+variable "name" {
+  type    = string
+  default = "demo-rg"
 }
 
 variable "location" {
