@@ -44,7 +44,7 @@ output "location" {
   value = azurerm_resource_group.example.location
 }
 
-output "zuread_client_config.object_id" {
+output "azuread_client_config_object_id" {
   value       = data.azuread_client_config.current.object_id
   description = "azuread_client_config.object_id"
 }
