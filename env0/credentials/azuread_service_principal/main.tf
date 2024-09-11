@@ -32,9 +32,12 @@ resource "azuread_service_principal_password" "env0" {
   rotate_when_changed  = { rotation = time_rotating.refresh.id }
 }
 
+## NOTICE ##
+## This is defaulting the role to "Contributor" to the Subscription being used.
+## Please modify as you see fit
 resource "azurerm_role_assignment" "contributor" {
   scope                = data.azurerm_subscription.current.id
-  role_definition_name = "Contributor"
+  role_definition_name = var.role_definition_name
   principal_id         = azuread_service_principal.env0.object_id
 }
 

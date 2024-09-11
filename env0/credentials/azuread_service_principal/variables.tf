@@ -16,3 +16,9 @@ variable "azure_sp_name" {
 #   type = string
 #   description = "azure subscription_id"
 # }
+
+variable "role_definition_name" {
+  type        = string
+  default     = "Contributor"
+  description = "Name of the built-in role to use with the servie principal. e.g. Contributor | Reader"
+}

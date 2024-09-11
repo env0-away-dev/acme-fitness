@@ -7,6 +7,11 @@ output "tenant_id" {
   value    = data.azurerm_subscription.current.tenant_id
 }
 
+output "azure_app_display_name" {
+  value       = azuread_application.env0.display_name
+  description = "Azure App Registration name"
+}
+
 output "azure_credential" {
   value       = azuread_service_principal.env0.display_name
   description = "Azure SP"
