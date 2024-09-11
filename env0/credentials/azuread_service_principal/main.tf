@@ -32,10 +32,17 @@ resource "azuread_service_principal_password" "env0" {
   rotate_when_changed  = { rotation = time_rotating.refresh.id }
 }
 
+resource "azurerm_role_assignment" "contributor" {
+  scope                = data.azurerm_subscription.current.id
+  role_definition_name = "Contributor"
+  principal_id         = azuread_service_principal.env0.object_id
+}
+
 resource "env0_azure_credentials" "credentials" {
   name            = var.azure_sp_name
   client_id       = azuread_application.env0.client_id
   client_secret   = azuread_service_principal_password.env0.value
-  subscription_id = data.azurerm_subscription.current.id
+  subscription_id = data.azurerm_subscription.current.subscription_id
   tenant_id       = data.azuread_client_config.current.tenant_id
 }
+
