@@ -1,0 +1,9 @@
+version: 2
+
+deploy:
+  steps:
+    terraformPlan:
+      after:
+      - name: "From Root of Repo Layer"
+        run: |
+          echo "Hello, this is being called from the repo root layer"
